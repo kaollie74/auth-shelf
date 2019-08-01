@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import ItemForm from '../ItemForm/ItemForm';
 
 
 // This is one of our simplest components
@@ -20,7 +21,7 @@ class InfoPage extends Component {
         <p>
           Shelf Page
         </p>
-        {JSON.stringify(this.props.reduxState.shelfItems)}
+        <ItemForm />
       </div>
     )
     } 
