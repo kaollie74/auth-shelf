@@ -5,6 +5,7 @@ import axios from 'axios';
 function* getItems(action) {
     try {
         const response = yield axios.get('/api/shelf');
+        console.log('in getItemsSaga, response is:', response.data)
         yield put({type: 'SET_ITEMS', payload: response.data })
     } catch (error) {
         console.log('Error with getting items:', error);

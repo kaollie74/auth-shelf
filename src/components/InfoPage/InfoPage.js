@@ -1,16 +1,34 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
+
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is, so it doesn't need 'connect()'
 
-const InfoPage = () => (
-  <div>
-    <p>
-      Shelf Page
-    </p>
-  </div>
-);
+class InfoPage extends Component {
 
-export default InfoPage;
+  componentDidMount() {
+    const action = {type: 'GET_ITEMS'};
+    this.props.dispatch(action)
+  }
+
+  render() {
+    return (
+      <div>
+        <p>
+          Shelf Page
+        </p>
+        {JSON.stringify(this.props.reduxState.shelfItems)}
+      </div>
+    )
+    } 
+  }
+
+  const mapStateToProps = (reduxState) => ({
+    reduxState
+  });
+
+  export default connect(mapStateToProps)(InfoPage);
+
