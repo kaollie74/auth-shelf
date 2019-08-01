@@ -21,9 +21,19 @@ function* postItem(action) {
     }
 }
 
+function* deleteItem(action) {
+    try {
+        yield axios.delete(`/api/shelf/${action.payload.id}`);
+        yield put({ type: 'GET_ITEMS' });
+    } catch (error) {
+        console.log('Error with deleting items:', error);
+    }
+}
+
 function* getItemsSaga() {
     yield takeEvery('GET_ITEMS', getItems);
     yield takeEvery('ADD_ITEM', postItem);
+    yield takeEvery('DELETE_ITEM', deleteItem);
 }
 
 export default getItemsSaga;
