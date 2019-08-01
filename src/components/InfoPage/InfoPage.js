@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ItemForm from '../ItemForm/ItemForm';
 
@@ -11,25 +11,44 @@ import ItemForm from '../ItemForm/ItemForm';
 class InfoPage extends Component {
 
   componentDidMount() {
-    const action = {type: 'GET_ITEMS'};
+    const action = { type: 'GET_ITEMS' };
     this.props.dispatch(action)
+  }
+
+  deleteItem = (user) => {
+    console.log(user);
+    this.props.dispatch({type: 'DELETE_ITEM', payload: user});
+  }
+
+  checkUser = (user) => {
+    if (user.user_id === this.props.reduxState.user.id) {
+      return (
+          <button onClick={() => this.deleteItem(user)}>Delete</button>
+      );
+    }
   }
 
   render() {
     return (
       <div>
-        <p>
-          Shelf Page
-        </p>
         <ItemForm />
+        <ul>
+          {this.props.reduxState.itemReducer.map(item =>
+            <li key={item.id}>
+              <p>{item.description}</p>
+              <img src={item.image_url} alt={item.description} />
+              {this.checkUser(item)}
+            </li>
+          )}
+        </ul>
       </div>
     )
-    } 
   }
+}
 
-  const mapStateToProps = (reduxState) => ({
-    reduxState
-  });
+const mapStateToProps = (reduxState) => ({
+  reduxState
+});
 
-  export default connect(mapStateToProps)(InfoPage);
+export default connect(mapStateToProps)(InfoPage);
 
