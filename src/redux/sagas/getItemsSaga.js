@@ -11,8 +11,18 @@ function* getItems(action) {
     }
 }
 
+function* postItem(action) {
+    try {
+        yield axios.post('/api/shelf', action.payload);
+        yield put ({type: 'GET_ITEMS'});
+    } catch (error) {
+        console.log('Error with posting items:', error);
+    }
+}
+
 function* getItemsSaga() {
     yield takeEvery('GET_ITEMS', getItems);
+    yield takeEvery('ADD_ITEM', postItem);
 }
 
 export default getItemsSaga;

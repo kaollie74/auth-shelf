@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     const sqlText = `INSERT INTO "item" ("description", "image_url", "user_id")
     VALUES ($1, $2, $3);`;
-    const values = [req.body.description, req.body.image_url, req.body.user_id];
+    const values = [req.body.description, req.body.image_url, req.user.id];
     pool.query(sqlText, values)
     .then((response)=>{
         res.sendStatus(201)
