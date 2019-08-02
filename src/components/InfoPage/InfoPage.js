@@ -12,7 +12,8 @@ class InfoPage extends Component {
 
   componentDidMount() {
     const action = { type: 'GET_ITEMS' };
-    this.props.dispatch(action)
+    this.props.dispatch(action);
+    this.checkLoggedIn();
   }
 
   deleteItem = (user) => {
@@ -28,10 +29,17 @@ class InfoPage extends Component {
     }
   }
 
+  checkLoggedIn = () => {
+    console.log('in checkLoggedIn. this.props.reduxState.user.id =', this.props.reduxState.user.id )
+    if (this.props.reduxState.user.id){
+      return (<ItemForm />)
+    }
+  }
+
   render() {
     return (
       <div>
-        <ItemForm />
+        {this.checkLoggedIn()}
         <ul>
           {this.props.reduxState.itemReducer.map(item =>
             <li key={item.id}>

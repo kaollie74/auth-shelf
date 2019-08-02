@@ -81,6 +81,14 @@ class LoginPage extends Component {
           >
             Register
           </button>
+          <br/>
+          <button
+            type="button"
+            className="link-button"
+            onClick={() => { this.props.history.push('/info') }}
+          >
+            Continue as Guest
+          </button>
         </center>
       </div>
     );
